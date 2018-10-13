@@ -1,0 +1,21 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    --color-base: #efefef;
+    --color-light: #a9a9a9;
+    --color-dark: #363636;
+    --color-highlight: yellowgreen;
+
+    --font-light: 'ariel';
+    --font-heavy: 'ariel';
+}
+
+/* Responsive media queries */
+@media (max-width: 4000px) {
+    body {
+        --article-width: 700px;
+    }
+}

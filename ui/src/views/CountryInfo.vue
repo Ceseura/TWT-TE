@@ -1,10 +1,10 @@
 <template>
-  <div class="home">
-    <Title title="Market Analysis Tool"/>
+  <div class="country-info">
+    <Title title="Country Info Page"/>
     <div class="two-column-layout">
       <div class="left-col">
         <div class="search">
-          <input type="text" placeholder="Search by Country Name"/>
+            <input type="text" placeholder="Search by Country Name"/>
         </div>
         <Table :tableData="this.data"/>
       </div>
@@ -33,24 +33,7 @@ export default {
   },
   created: function() {
     // GET data from api (axios?)
-    this.data = [
-      {
-        id: 0,
-        import_country: 'China',
-        model: 'E-Series',
-        make: 'Ford',
-        sold_by: 'Roanna Hinken',
-        sale_price: 19707
-      },
-      {
-        id: 1,
-        import_country: 'Japan',
-        model: 'Sierra 2500',
-        make: 'GMC',
-        sold_by: 'Thurstan Gorey',
-        sale_price: 20811
-      }
-    ];
+    this.data = [{ id: 0, content: 'hello world' }, { id: 1, content: 'no u' }];
   }
 };
 </script>
