@@ -5,12 +5,13 @@ html, body {
 
 body {
     --color-base: #efefef;
+    --color-table-alt: #e0e0e0;
     --color-light: #a9a9a9;
     --color-dark: #363636;
     --color-highlight: yellowgreen;
 
-    --font-light: 'ariel';
-    --font-heavy: 'ariel';
+    --font-light: 'Montserrat', sans-serif;
+    --font-heavy: 'Source Sans Pro', sans-serif;
 }
 
 /* Responsive media queries */

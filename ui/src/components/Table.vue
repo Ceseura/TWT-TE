@@ -1,7 +1,7 @@
 <template>
     <div class="table">
-        <TableRow :header="true" />
-        <TableRow v-for="tablerow in this.tableData" :key="tablerow.id" :tableData="tablerow"/>
+        <TableRow :headers="tableHeaders"/>
+        <TableRow v-for="tablerow in this.tableData" :key="tablerow.country" :tableData="tablerow"/>
     </div>
 </template>
 
@@ -13,7 +13,8 @@ export default {
     TableRow
   },
   props: {
-    tableData: Array
+    tableData: Array,
+    tableHeaders: Array
   }
 };
 </script>

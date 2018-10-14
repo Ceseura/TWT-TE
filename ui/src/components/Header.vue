@@ -12,9 +12,10 @@ export default {};
 .header {
   position: sticky;
   top: 0;
-  width: 100vw;
+  width: 100%;
   height: 60px;
   background-color: var(--color-dark);
   color: var(--color-base);
+  z-index: 10;
 }
 </style>

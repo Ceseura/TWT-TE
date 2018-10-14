@@ -1,13 +1,13 @@
 <template>
     <div class="title">
-        {{this.Title}}
+        {{this.title}}
     </div>
 </template>
 
 <script>
 export default {
   props: {
-    Title: String
+    title: String
   }
 };
 </script>
@@ -16,5 +16,7 @@ export default {
 .title {
   color: var(--color-dark);
   font-size: 5em;
+  font-family: var(--font-light);
+  padding: 0.8em 1.5em;
 }
 </style>
