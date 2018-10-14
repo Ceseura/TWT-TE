@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        Placeholder Header Text
+        Vandelay Industries
     </div>
 </template>
 
@@ -10,12 +10,19 @@ export default {};
 
 <style scoped>
 .header {
-  position: sticky;
   top: 0;
   width: 100%;
   height: 60px;
   background-color: var(--color-dark);
   color: var(--color-base);
   z-index: 10;
+  padding-left: 50px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  font-size: 2em;
+  font-family: var(--font-light);
 }
 </style>

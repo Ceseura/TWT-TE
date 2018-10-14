@@ -1,9 +1,11 @@
 <template>
   <div class="home">
-    <Title title="Market Analysis Tool"/>
     <div class="two-column-layout">
       <div class="left-col">
+        <Title title="Market Analysis Tool"/>
+
         <div class="settings">
+          <div class="align-right" />
           <div class="sort-by">
             Sort by: 
             <select v-model="sortBy">
@@ -65,11 +67,7 @@ export default {
       .get('https://jsonplaceholder.typicode.com/todos/1')
       .then(res => {
         console.log(res.data);
-        // this.rawData = this.parse_homepage_data(res.data);
         this.rawData = this.parse_homepage_data(cacheData);
-        // this.rawData.sort((a, b) => {
-        //   return b.total_profit - a.total_profit;
-        // });
       })
       .catch(error => {
         console.log(error);
@@ -106,11 +104,13 @@ export default {
 }
 
 .settings {
-  position: absolute;
-  right: 3em;
-  top: 0;
   display: flex;
   flex-direction: row;
+  padding-bottom: 1em;
+}
+
+.align-right {
+  flex: 1 1 auto;
 }
 
 .sort-by {
@@ -125,6 +125,7 @@ export default {
   border-radius: 2em;
   background-color: white;
   border: 1px solid black;
+  position: relative;
 }
 
 .search-input {
@@ -158,7 +159,6 @@ export default {
 .left-col {
   width: 60%;
   position: relative;
-  padding-top: 3em;
   margin: 0 1em;
   box-sizing: border-box;
 }
