@@ -22,12 +22,13 @@
             <div class="search-icon" />
           </div>
         </div>
-        <Table :tableData="this.displayData" 
-               :tableHeaders="this.tableHeaders"/>
+        <Table :tableData="this.tableData" 
+               :tableHeaders="this.tableHeaders"
+               :clickable="true"/>
       </div>
       <div class="right-col">
         <Statistics :statistics="statistics" />
-        <Charts :chartData="this.chartData" :chartType="this.sortBy"/>
+        <Charts :chartData="this.chartData" :chartType="this.sortBy" :homepage="true"/>
       </div>
     </div>
   </div>
@@ -83,7 +84,7 @@ export default {
       });
   },
   computed: {
-    displayData: function() {
+    tableData: function() {
       let out = this.rawData.map(a => ({ ...a }));
       let filtered = out.filter(el => {
         return el.country
@@ -91,27 +92,27 @@ export default {
           .includes(this.searchQuery.toLowerCase());
       });
       let sorted = filtered.sort((a, b) => {
-        if (this.sortBy === 'country')
-          return a.country.localeCompare(b.country);
-        else return b[this.sortBy] - a[this.sortBy];
+        return b[this.sortBy] - a[this.sortBy];
       });
 
       let qty_graphed = 10
 
       this.chartData = sorted.map(a => ({ ...a })).slice(0, qty_graphed);
-      let otherData = sorted.map(a => ({...a})).slice(qty_graphed);
-      let otherTransactions = {
-        country: sorted.length - qty_graphed + ' other',
-        avg_price: 0,
-        qty_sold: 0,
-        total_profit: 0
-      };
-      otherData.forEach(el => {
-        otherTransactions.qty_sold += el.qty_sold;
-        otherTransactions.total_profit += el.total_profit;
-        otherTransactions.avg_price = otherTransactions.total_profit / otherTransactions.qty_sold
-      });
-      this.chartData.push(otherTransactions);
+      if (sorted.length > qty_graphed) {
+        let otherData = sorted.map(a => ({...a})).slice(qty_graphed);
+        let otherTransactions = {
+          country: sorted.length - qty_graphed + ' other',
+          avg_price: 0,
+          qty_sold: 0,
+          total_profit: 0
+        };
+        otherData.forEach(el => {
+          otherTransactions.qty_sold += el.qty_sold;
+          otherTransactions.total_profit += el.total_profit;
+          otherTransactions.avg_price = otherTransactions.total_profit / otherTransactions.qty_sold
+        });
+        this.chartData.push(otherTransactions);
+      }
 
       sorted.forEach(row => {
         row.avg_price = this.format_number(Math.round(row.avg_price));

@@ -11,7 +11,8 @@ import { Chart } from 'highcharts-vue';
 export default {
   props: {
     chartData: Array,
-    chartType: String
+    chartType: String,
+    homepage: Boolean,
   },
   components: {
     highcharts: Chart
@@ -40,7 +41,6 @@ export default {
     // @params
     //    x: String, which element in chartData to plot along the y axis
     generateBarChartOptions: function(cType) {
-        console.log(this.chartData[0])
       return {
         chart: {
           type: 'column',
@@ -50,7 +50,7 @@ export default {
           text: this.prettierType(cType)
         },
         xAxis: {
-          categories: this.chartData.map(el => el.country)
+          categories: this.homepage ? this.chartData.map(el => el.country) : this.chartData.map(el => el.make + ' ' + el.model)
         },
         series: [
           {
@@ -62,8 +62,9 @@ export default {
       };
     },
     generatePieChartOptions: function(cType) {
-        let t = this.chartData.map(el => el[cType]).reduce((total, num) => {return total + num});
-        console.log(t);
+      let t = this.chartData.map(el => el[cType]).reduce((total, num) => {
+        return total + num;
+      }, 0);
       return {
         plotOptions: {
           pie: {
@@ -81,16 +82,18 @@ export default {
           text: this.prettierType(cType) + ' by Percentage'
         },
         xAxis: {
-          categories: this.chartData.map(el => el.country)
+          categories: this.homepage ? this.chartData.map(el => el.country) : this.chartData.map(el => el.make + ' ' + el.model)
         },
         series: [
           {
             name: this.prettierType(cType),
-            data: this.chartData.map(el => {return {
-                name: el.country,
+            data: this.chartData.map(el => {
+              return {
+                name: this.homepage ? el.country : el.make + ' ' + el.model,
                 y: el[cType],
                 percentage: el[cType] / t
-            }})
+              };
+            })
           }
         ]
       };

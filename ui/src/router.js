@@ -13,7 +13,7 @@ export default new Router({
       component: Home
     },
     {
-      path: '/c',
+      path: '/:country',
       name: 'country-info',
       component: CountryInfo
     }

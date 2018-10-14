@@ -1,5 +1,5 @@
 <template>
-    <div class="tableRow">
+    <div class="tableRow" v-on:click="navigate" :class="{clickable: clickable}">
         <div v-if="this.headers" class="header row">
           <div v-for="header in this.headers" :key="header" class="item">
             {{header}}
@@ -17,7 +17,14 @@
 export default {
   props: {
     tableData: Object,
-    headers: Array
+    headers: Array,
+    clickable: Boolean
+  },
+  methods: {
+    navigate: function(event) {
+      if (this.clickable)
+        this.$router.push(this.tableData.country);
+    }
   }
 };
 </script>
@@ -28,6 +35,12 @@ export default {
   box-sizing: border-box;
   border-left: 1px solid black;
   border-right: 1px solid black;
+  cursor: default;
+}
+
+.clickable:hover {
+  cursor: pointer;
+  background-color: var(--color-light) !important;
 }
 
 .tableRow:nth-child(2n + 1) {

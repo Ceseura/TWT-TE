@@ -1,7 +1,7 @@
 <template>
     <div class="table">
-        <TableRow :headers="tableHeaders"/>
-        <TableRow v-for="tablerow in this.tableData" :key="tablerow.country" :tableData="tablerow"/>
+        <TableRow :headers="tableHeaders" :clickable="false"/>
+        <TableRow v-for="tablerow in this.tableData" :key="tablerow.country" :tableData="tablerow" :clickable="clickable"/>
     </div>
 </template>
 
@@ -14,7 +14,8 @@ export default {
   },
   props: {
     tableData: Array,
-    tableHeaders: Array
+    tableHeaders: Array,
+    clickable: Boolean
   }
 };
 </script>
