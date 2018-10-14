@@ -6,9 +6,17 @@ html, body {
 body {
     --color-base: #efefef;
     --color-table-alt: #e0e0e0;
-    --color-light: #a9a9a9;
+    --color-table-highlight: #bebebe;
+    
+    /* --color-base: #eae7dc; */
+    --color-tan: #d8c3a5;
+    --color-grey: #8e8d8a;
+    --color-pink: #e98074;
     --color-dark: #363636;
-    --color-highlight: yellowgreen;
+    /* --color-blue: #d9e8f3; */
+    --color-red: #eccece;
+
+    /* --color-table-alt: #dad6cc; */
 
     --font-light: 'Montserrat', sans-serif;
     --font-heavy: 'Source Sans Pro', sans-serif;

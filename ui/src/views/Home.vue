@@ -48,7 +48,7 @@ export default {
     Title,
     Table,
     Charts,
-    Statistics,
+    Statistics
   },
   mixins: [DataParser],
   data: function() {
@@ -63,7 +63,7 @@ export default {
       searchQuery: '',
       sortBy: 'total_profit',
       chartData: [],
-      statistics: [],
+      statistics: []
     };
   },
   created: function() {
@@ -73,11 +73,21 @@ export default {
       .then(res => {
         console.log(res.data);
         this.rawData = this.parse_homepage_data(cacheData);
-        this.statistics.push({"Number of Transactions Analyzed": "50"});
-        this.statistics.push({"Number of Unique Countries": this.rawData.length});
-        let total_total_profit = this.rawData.map(el => el.total_profit).reduce((num, total) => {return num + total})
-        this.statistics.push({"Overall Total Profit": this.format_number(total_total_profit)});
-        this.statistics.push({"Overall Average Price": this.format_number(total_total_profit / 50)});
+        this.statistics.push({ 'Number of Transactions Analyzed': '100' });
+        this.statistics.push({
+          'Number of Unique Countries': this.rawData.length
+        });
+        let total_total_profit = this.rawData
+          .map(el => el.total_profit)
+          .reduce((num, total) => {
+            return num + total;
+          });
+        this.statistics.push({
+          'Overall Total Profit': this.format_number(total_total_profit)
+        });
+        this.statistics.push({
+          'Overall Average Price': this.format_number(total_total_profit / 100)
+        });
       })
       .catch(error => {
         console.log(error);
@@ -95,11 +105,11 @@ export default {
         return b[this.sortBy] - a[this.sortBy];
       });
 
-      let qty_graphed = 10
+      let qty_graphed = 9;
 
       this.chartData = sorted.map(a => ({ ...a })).slice(0, qty_graphed);
       if (sorted.length > qty_graphed) {
-        let otherData = sorted.map(a => ({...a})).slice(qty_graphed);
+        let otherData = sorted.map(a => ({ ...a })).slice(qty_graphed);
         let otherTransactions = {
           country: sorted.length - qty_graphed + ' other',
           avg_price: 0,
@@ -109,7 +119,8 @@ export default {
         otherData.forEach(el => {
           otherTransactions.qty_sold += el.qty_sold;
           otherTransactions.total_profit += el.total_profit;
-          otherTransactions.avg_price = otherTransactions.total_profit / otherTransactions.qty_sold
+          otherTransactions.avg_price =
+            otherTransactions.total_profit / otherTransactions.qty_sold;
         });
         this.chartData.push(otherTransactions);
       }
@@ -188,6 +199,7 @@ export default {
   display: flex;
   flex-direction: row;
   width: 100%;
+  min-height: 100vh;
 }
 
 .left-col {
@@ -199,5 +211,7 @@ export default {
 
 .right-col {
   width: 40%;
+  padding: 0 1em;
+  background-color: var(--color-red);
 }
 </style>

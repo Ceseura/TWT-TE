@@ -33,24 +33,28 @@ export default {
 .tableRow {
   width: 100%;
   box-sizing: border-box;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
+  border-left: 1px solid var(--color-grey);
+  border-right: 1px solid var(--color-grey);
   cursor: default;
 }
 
 .clickable:hover {
   cursor: pointer;
-  background-color: var(--color-light) !important;
+  background-color: var(--color-table-highlight) !important;
 }
 
 .tableRow:nth-child(2n + 1) {
   background-color: var(--color-table-alt);
 }
 
+.tableRow:last-child {
+  border-bottom: 1px solid var(--color-grey);
+}
+
 .header {
   font-size: 2em;
   font-family: var(--font-heavy);
-  border-bottom: 2px solid var(--color-dark);
+  border-bottom: 2px solid var(--color-grey);
   background-color: var(--color-base);
 }
 

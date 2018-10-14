@@ -62,8 +62,8 @@ let DataParser = {
 
         if (index === -1) {
           out.push({
-            make: transaction.make ? transaction.make : 'undefined',
-            model: transaction.model ? transaction.model : 'undefined',
+            make: transaction.make ? transaction.make : 'Unlisted',
+            model: transaction.model ? transaction.model : 'Unlisted',
             avg_price: transaction.sale_price,
             qty_sold: 1,
             total_profit: transaction.sale_price

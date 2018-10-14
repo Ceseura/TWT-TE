@@ -1,7 +1,8 @@
 <template>
     <div class="charts">
-        <highcharts :options="barChartOptions"></highcharts>
-        <highcharts v-if="chartType != 'avg_price'" :options="pieChartOptions"></highcharts>
+        <highcharts :options="barChartOptions" class="chart"></highcharts>
+        <div class='spacer' />
+        <highcharts v-if="chartType != 'avg_price'" :options="pieChartOptions" class="chart"></highcharts>
     </div>
 </template>
 
@@ -111,6 +112,10 @@ export default {
 <style scoped>
 .charts {
   padding-top: 1em;
-  padding-right: 1em;
+}
+
+.chart {
+  box-shadow: 1px 4px 3px var(--color-grey);
+  margin-bottom: 3em;
 }
 </style>

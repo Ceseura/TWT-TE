@@ -83,21 +83,23 @@ export default {
         // console.log(res.data);
         this.rawData = this.parse_country_data(cacheData);
         this.rawDataMake = this.parse_country_data_by_make(cacheData);
-        this.statistics.push({ 'Number of Transactions Analyzed': '50' });
+        this.statistics.push({ 'Number of Transactions Analyzed': '100' });
         this.statistics.push({
           'Number of Unique Models': this.rawData.length
         });
-        this.statistics.push({'Number of Unique Makes': this.rawDataMake.length});
+        this.statistics.push({
+          'Number of Unique Makes': this.rawDataMake.length
+        });
         let total_total_profit = this.rawData
           .map(el => el.total_profit)
           .reduce((num, total) => {
             return num + total;
           });
         this.statistics.push({
-          'Overall Total Profit': this.format_number(total_total_profit)
+          'Country Total Profit': this.format_number(total_total_profit)
         });
         this.statistics.push({
-          'Overall Average Price': this.format_number(total_total_profit / 50)
+          'Country Average Price': this.format_number(total_total_profit / 100)
         });
       })
       .catch(error => {
@@ -106,7 +108,9 @@ export default {
   },
   computed: {
     tableData: function() {
-      let out = this.groupByMake ? this.rawDataMake.map(a => ({ ...a })) : this.rawData.map(a => ({ ...a }));
+      let out = this.groupByMake
+        ? this.rawDataMake.map(a => ({ ...a }))
+        : this.rawData.map(a => ({ ...a }));
       let filtered = out.filter(el => {
         return (
           el.make.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
@@ -117,7 +121,7 @@ export default {
         return b[this.sortBy] - a[this.sortBy];
       });
 
-      let qty_graphed = 10;
+      let qty_graphed = 9;
 
       this.chartData = sorted.map(a => ({ ...a })).slice(0, qty_graphed);
       if (sorted.length > qty_graphed) {
@@ -137,7 +141,7 @@ export default {
         });
         this.chartData.push(otherTransactions);
       }
-      
+
       sorted.forEach(row => {
         row.avg_price = this.format_number(Math.round(row.avg_price));
         row.total_profit = this.format_number(row.total_profit);
@@ -220,6 +224,7 @@ export default {
   display: flex;
   flex-direction: row;
   width: 100%;
+  min-height: 100vh;
 }
 
 .left-col {
@@ -231,5 +236,7 @@ export default {
 
 .right-col {
   width: 40%;
+  padding: 0 1em;
+  background-color: var(--color-red);
 }
 </style>

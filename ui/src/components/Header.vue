@@ -1,11 +1,19 @@
 <template>
     <div class="header">
-        Vandelay Industries
+        <div class="brand" v-on:click="gotoHome">
+            Vandelay Industries
+        </div>
     </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    gotoHome: function(event) {
+      this.$router.push('/');
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -23,7 +31,16 @@ export default {};
   flex-direction: row;
   align-items: center;
 
+  cursor: default;
+}
+
+.brand {
   font-size: 2em;
   font-family: var(--font-light);
+  color: var(--color-base)
+}
+
+.brand:hover {
+  cursor: pointer;
 }
 </style>

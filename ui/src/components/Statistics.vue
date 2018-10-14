@@ -20,8 +20,10 @@ export default {
 .statistics {
     font-family: var(--font-light);
     font-size: 1.3em;
-    color: var(--color-light);
-    padding: 4em 5em 2em 2em;
+    color: var(--color-grey);
+    margin-top: 2em;
+    margin-bottom: 1em;
+    padding: 1em 5em 1em 2em;
     width: 100%;
     box-sizing: border-box;
 }
