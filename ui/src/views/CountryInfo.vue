@@ -76,13 +76,15 @@ export default {
     };
   },
   created: function() {
+    let debug = false;
+    let endpoint = debug
+      ? 'https://jsonplaceholder.typicode.com/todos/1'
+      : 'https://my.api.mockaroo.com/alex-liang.json?key=e6ac1da0';
     axios
-      // .get('https://my.api.mockaroo.com/alex-liang.json?key=e6ac1da0')
-      .get('https://jsonplaceholder.typicode.com/todos/1')
+      .get(endpoint)
       .then(res => {
-        // console.log(res.data);
-        this.rawData = this.parse_country_data(cacheData);
-        this.rawDataMake = this.parse_country_data_by_make(cacheData);
+        this.rawData = this.parse_country_data(res.data);
+        this.rawDataMake = this.parse_country_data_by_make(res.data);
         this.statistics.push({ 'Number of Transactions Analyzed': '100' });
         this.statistics.push({
           'Number of Unique Models': this.rawData.length

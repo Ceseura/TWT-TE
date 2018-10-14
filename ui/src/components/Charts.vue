@@ -13,7 +13,7 @@ export default {
   props: {
     chartData: Array,
     chartType: String,
-    homepage: Boolean,
+    homepage: Boolean
   },
   components: {
     highcharts: Chart
@@ -51,7 +51,9 @@ export default {
           text: this.prettierType(cType)
         },
         xAxis: {
-          categories: this.homepage ? this.chartData.map(el => el.country) : this.chartData.map(el => el.make + ' ' + el.model)
+          categories: this.homepage
+            ? this.chartData.map(el => el.country)
+            : this.chartData.map(el => el.make + ' ' + el.model)
         },
         series: [
           {
@@ -83,7 +85,9 @@ export default {
           text: this.prettierType(cType) + ' by Percentage'
         },
         xAxis: {
-          categories: this.homepage ? this.chartData.map(el => el.country) : this.chartData.map(el => el.make + ' ' + el.model)
+          categories: this.homepage
+            ? this.chartData.map(el => el.country)
+            : this.chartData.map(el => el.make + ' ' + el.model)
         },
         series: [
           {

@@ -37,7 +37,7 @@ export default {
 .brand {
   font-size: 2em;
   font-family: var(--font-light);
-  color: var(--color-base)
+  color: var(--color-base);
 }
 
 .brand:hover {

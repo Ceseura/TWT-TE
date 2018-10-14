@@ -22,8 +22,7 @@ export default {
   },
   methods: {
     navigate: function(event) {
-      if (this.clickable)
-        this.$router.push(this.tableData.country);
+      if (this.clickable) this.$router.push(this.tableData.country);
     }
   }
 };
