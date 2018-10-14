@@ -17,6 +17,7 @@ export default {};
   color: var(--color-base);
   z-index: 10;
   padding-left: 50px;
+  box-sizing: border-box;
 
   display: flex;
   flex-direction: row;

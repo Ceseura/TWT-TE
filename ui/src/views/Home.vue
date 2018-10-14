@@ -9,7 +9,6 @@
           <div class="sort-by">
             Sort by: 
             <select v-model="sortBy">
-              <option value="country">Country</option>
               <option value="avg_price">Average Price</option>
               <option value="qty_sold">Quantity Sold</option>
               <option value="total_profit">Total Profit</option>
@@ -27,7 +26,8 @@
                :tableHeaders="this.tableHeaders"/>
       </div>
       <div class="right-col">
-        <Charts />
+        <Statistics :statistics="statistics" />
+        <Charts :chartData="this.chartData" :chartType="this.sortBy"/>
       </div>
     </div>
   </div>
@@ -37,6 +37,7 @@
 import Title from '@/components/Title';
 import Table from '@/components/Table';
 import Charts from '@/components/Charts';
+import Statistics from '@/components/Statistics';
 import DataParser from '@/mixins/DataParser.js';
 import cacheData from '@/assets/data.js';
 const axios = require('axios');
@@ -45,7 +46,8 @@ export default {
   components: {
     Title,
     Table,
-    Charts
+    Charts,
+    Statistics,
   },
   mixins: [DataParser],
   data: function() {
@@ -58,7 +60,9 @@ export default {
         'Total Profit'
       ],
       searchQuery: '',
-      sortBy: 'total_profit'
+      sortBy: 'total_profit',
+      chartData: [],
+      statistics: [],
     };
   },
   created: function() {
@@ -68,6 +72,11 @@ export default {
       .then(res => {
         console.log(res.data);
         this.rawData = this.parse_homepage_data(cacheData);
+        this.statistics.push({"Number of Transactions Analyzed": "50"});
+        this.statistics.push({"Number of Unique Countries": this.rawData.length});
+        let total_total_profit = this.rawData.map(el => el.total_profit).reduce((num, total) => {return num + total})
+        this.statistics.push({"Overall Total Profit": this.format_number(total_total_profit)});
+        this.statistics.push({"Overall Average Price": this.format_number(total_total_profit / 50)});
       })
       .catch(error => {
         console.log(error);
@@ -86,11 +95,35 @@ export default {
           return a.country.localeCompare(b.country);
         else return b[this.sortBy] - a[this.sortBy];
       });
+
+      let qty_graphed = 10
+
+      this.chartData = sorted.map(a => ({ ...a })).slice(0, qty_graphed);
+      let otherData = sorted.map(a => ({...a})).slice(qty_graphed);
+      let otherTransactions = {
+        country: sorted.length - qty_graphed + ' other',
+        avg_price: 0,
+        qty_sold: 0,
+        total_profit: 0
+      };
+      otherData.forEach(el => {
+        otherTransactions.qty_sold += el.qty_sold;
+        otherTransactions.total_profit += el.total_profit;
+        otherTransactions.avg_price = otherTransactions.total_profit / otherTransactions.qty_sold
+      });
+      this.chartData.push(otherTransactions);
+
       sorted.forEach(row => {
         row.avg_price = this.format_number(Math.round(row.avg_price));
         row.total_profit = this.format_number(row.total_profit);
       });
       return sorted;
+    },
+    prettierType: function() {
+      if (this.sortBy === 'avg_price') return 'Average Price';
+      else if (this.sortBy === 'qty_sold') return 'Quantity Sold';
+      else if (this.sortBy === 'total_profit') return 'Total Profit';
+      else return 'Invalid SortBy';
     }
   }
 };
